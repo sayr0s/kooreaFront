@@ -1,0 +1,60 @@
+<div class="users-page">
+	
+	<div class="header">
+		<div class="title">
+			<div class="return-btn" (click)="returnFromPage()" *ngIf="!currentAdmin">
+				<i class="fa-solid fa-arrow-left"></i>
+			</div>
+			<p>
+				<label *ngIf="!currentAdmin">Admin: <a>{{adminParamId}}</a></label>
+				<span *ngIf="currentAdmin">Players Management</span>
+			</p>
+		</div>
+		<input type="text" placeholder="search" (input)="search($event)" />
+		<div class="btns" *ngIf="userType === 'admin'">
+			<div class="btn"  *ngIf="currentAdmin" routerLink="/admin/management/add-client">
+				<i class="fa-solid fa-circle-plus"></i>
+				<p>New player</p>
+			</div>
+		</div>
+	</div>
+	<div class="list" *ngIf="!isLoading">
+		<div class="head-list">
+			<div class="item">login</div>
+			<div class="item">Name</div>
+			<div class="item">Telephone</div>
+			<div class="item">solde</div>
+			<div class="item">Action</div>
+		</div>
+		<div class="item-list" *ngFor="let user of users" #item>
+			<div class="it name"> {{user.login}} </div>
+			<div class="it"> {{user.name}} {{user.lastName}}</div>
+			<div class="it "> {{user.teleJoueur}}</div>
+			<div class="it">{{user.solde}}</div>
+			<div class="it">
+				<div *ngIf="userType != 'start_admin'" class="btn edit" [routerLink]="'/admin/management/update-client/'+user._id" >
+					<i class="fa-regular fa-pen-to-square"></i>
+				</div>
+				<!--div class="btn block" *ngIf="userType === 'admin'">
+					<i class="fa-solid fa-lock"></i>
+				</div-->
+				<div class="btn block" (click)="removeUser(user,item)" *ngIf="userType === 'admin'">
+					<i class="fa-solid fa-trash-can"></i>
+					<!--i class="fa-solid fa-lock-open"></i-->
+				</div>
+				<div class="btn block" (click)="removeUser(user,item)" *ngIf="userType === 'superAdmin' ">
+					<i class="fa-solid fa-trash-can"></i>
+				</div>
+				<div class="btn block" (click)="openUserHistory(user)" style="background-color: #3aa8ff;">
+					<i class="fa-solid fa-clock-rotate-left"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="loading-ellipsis" *ngIf="isLoading">
+		<div class="r1"></div>
+		<div class="r2"></div>
+		<div class="r3"></div>
+	</div>
+
+</div>

@@ -1,0 +1,163 @@
+<div class="spin-app" style="background-image: url('/assets/img/image2.jpg')">
+	<div class="user-details">
+		<div style="display: flex;align-items: center;justify-content: space-between;width: 64%;">
+			<img style="pointer-events: all;" class="fullScreenBtn" src="/assets/img/flag.jpg" alt="flag" />
+			<div class="jackpot-section orange" *ngIf="tempList[2].status">
+				<div class="ctn">
+					{{tempList[2].title}}
+					<br>
+					<span>{{tempList[2].value}}</span>
+				</div>
+				<img  [src]="tempList[2].value" alt="image" *ngIf="tempList[2].type==='image' && tempList[2].status">
+			</div>
+		</div>
+	</div>
+	<div class="left-section-itm">
+		<div class="jackpot-section blue">
+			<div class="ctn" *ngIf="tempList[0].type==='text'  && tempList[0].status">
+				{{tempList[0].title}}
+				<br>
+				<span>{{tempList[0].value}}</span>
+			</div>
+			<img [src]="tempList[0].value" alt="image" *ngIf="tempList[0].type==='image'  && tempList[0].status">
+		</div>
+		<div class="jackpot-section red">
+			<div class="ctn" *ngIf="tempList[1].type==='text'  && tempList[1].status">
+				{{tempList[1].title}}
+				<br>
+				<span>{{tempList[1].value}}</span>
+			</div>
+			<img [src]="tempList[1].value" alt="image" *ngIf="tempList[1].type==='image'  && tempList[1].status">
+		</div>
+	</div> 
+	<div class="logos"></div>
+	<div class="timer-bar"><div class="timer-bar-content" [ngStyle]="{'height':timerChrono}"></div></div>
+	<div class="chrono-container"><div>Bets close in <span class="timer-num">{{minutesChrono}} : {{secondesChrono}}</span></div></div>
+	
+	<div class="spin-section">
+		<div class="spin-ctn" style="background-image: url('/assets/img/image3.png')">
+			<div class="circle-anim" *ngIf="openAnimCircleSpin"></div>
+			<div class="center-circle-pointer" style="background-image: url('/assets/img/nbr-flc-2.png')"></div>
+			<div class="center-pointer" style="background-image: url('/assets/img/image10.png')"></div>
+			<div class="indicator-number">0</div>
+			<img class="lodoSpin" *ngIf="!spinFinish" src="/assets/img/logoospin.png">
+			<img class="spin" src="/assets/img/image11.png" alt="">
+		</div>
+	</div>
+	<div class="dashbord">
+		
+		<div class="flex-tables">
+			
+			<div class="section">
+				<div class="title">pay table</div>
+				<div class="table">
+					<div class="ligne">
+						<div class="ttl">color</div>
+						<div class="numbers">
+							<div class="nbr red">2</div>
+							<div class="nbr black">2</div>
+							<div class="nbr green end">50</div>
+						</div>
+					</div>
+					<div class="ligne grd">
+						<div class="ttl">dozens</div>
+						<div class="numbers">
+							<div class="nbr">3</div>
+						</div>
+					</div>
+					<div class="ligne grd">
+						<div class="ttl">even/odd</div>
+						<div class="numbers">
+							<div class="nbr">2</div>
+						</div>
+					</div>
+					<div class="ligne grd">
+						<div class="ttl">number</div>
+						<div class="numbers">
+							<div class="nbr end">36</div>
+						</div>
+					</div>
+					<div class="ligne grd end">
+						<div class="ttl">sectors</div>
+						<div class="numbers">
+							<div class="nbr end">6</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="section hist">
+				<div class="title">Last games</div>
+				<div class="table">
+					<div class="ligne grd" *ngFor="let lastNbr of lastTikets">
+						<div class="ttl"> {{lastNbr.code}} </div>
+						<div class="numbers">
+							<div [class]="'nbr end '+lastNbr.color"> {{lastNbr.number}} </div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="statistics">
+			<div class="title">statistics</div>
+			<div class="table">
+				<div class="content-table">
+					<div class="ttl">Numbers (Last 120 Draws)</div>
+
+					<div class="lignes-container"></div>
+
+					
+					<div class="ttl">dozens (Last 120 Draws)</div>
+					<div class="ligne">
+						<div class="key">1-12</div>
+						<div class="value">{{onto12Occur}}</div>
+						<div class="key">13-24</div>
+						<div class="value">{{thrtto24Occur}}</div>
+						<div class="key">25-36</div>
+						<div class="value">{{twntfto136ccur}}</div>
+					</div>
+					<div class="ttl">colors (Last 120 Draws)</div>
+					<div class="ligne tg">
+						<div class="key red">{{redOccur}}</div>
+						<div class="key black">{{blackOccur}}</div>
+						<div class="key green">{{greenOccur}}</div>
+					</div>
+					<div class="ttl">hot / cold numbers (Last 120 Draws)</div>
+					<div class="ligne hc">
+						<div class="key tl" style="background-color: #fb6535">Hot</div>
+						<div [class]="'key '+nb.color" *ngFor="let nb of hotNumbers">{{nb.number}}</div>
+					</div>
+					<div class="ligne hc">
+						<div class="key tl" style="background-color: #355b7f">cold</div>
+						<div [class]="'key '+nb.color" *ngFor="let nb of coldNumbers">{{nb.number}}</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+
+<div class="history-player" style="position: absolute;z-index: 156562156365;top: 0;left: 0;" *ngIf="openWinnersSpin">
+	
+	<div class="nav-bar">
+		<div class="return-btn" (click)="returnFromPage()">
+			<i class="fa-solid fa-xmark"></i>
+		</div>
+	</div>
+
+	<div class="content-history-page">
+		<div class="history-list">
+			<div class="head-list">
+				<div class="it">name</div>
+			</div>
+			<div class="item" *ngFor="let item of winners">
+				<div class="it" *ngIf="isNoWinners" style="color: gray;">{{item}}</div>
+				<div class="it" *ngIf="!isNoWinners">{{item}}</div>
+			</div>
+		</div>
+	</div>
+
+</div>

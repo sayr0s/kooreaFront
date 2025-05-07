@@ -1,0 +1,65 @@
+<div class="error-msg-box">
+	<i class="fa-solid fa-circle-xmark"></i>
+	<div class="text">
+		<span>Error</span>
+		<p>{{errorMsg}}</p>
+	</div>
+	
+</div>
+<div class="success-msg-box">
+	<i class="fa-solid fa-circle-check"></i>
+	<div class="text">
+		<span>Success</span>
+		<p>{{successMsg}}</p>
+	</div>
+	
+</div>
+<div class="user-form">
+	<div class="return-btn" [routerLink]="'/admin/management/template'" ><i class="fa-solid fa-arrow-left"></i></div>
+	<div class="form" *ngIf="!isLoading">
+		<div style="width: 100%;margin-bottom: 3%;font-size: 1.4vw;display: flex;align-items: center;justify-content: center;">
+			<p class="title-form-update-template" (click)="changeFormType('text')" [ngStyle]="{'cursor':'pointer', 'width':'50%','font-size': '1.5vw','text-align':'center', 'border-bottom': getBorderColor('text'),'padding': '3% 0'}">change text</p>
+			<p class="title-form-update-template" (click)="changeFormType('image')" [ngStyle]="{'cursor':'pointer', 'width':'50%','font-size': '1.5vw','text-align':'center', 'border-bottom': getBorderColor('image'),'padding': '3% 0'}">change image</p>
+		</div>
+		<input type="text" placeholder="Title" (input)="updateInfos('title',$event)"  [value]="requestInfos.title"/>
+		<br>
+		<input type="text" placeholder="Value" *ngIf="!typeIsImage" (input)="updateInfos('value',$event)"  [value]="requestInfos.value"/>
+
+
+		<img style="width: 30%;" [src]="imgaeSelected" alt="image_viewer" *ngIf="typeIsImage">
+		
+		<input type="file" (change)="selectImage($event)" *ngIf="typeIsImage"/>
+		<br>
+		<button (click)="update()" *ngIf="!isLoadingForm">save</button>
+		<div class="loading-ellipsis" style="
+				    top:auto;
+				    bottom:-10%;left: 10%;" *ngIf="isLoadingForm">
+				<div class="r1" style="
+					width: 2.5%;
+				    padding: 1.25% 0;
+				    border-radius: 100%;
+				    background-color: #b6b6b687;
+				    margin: 0 2%;
+				    scale: 2;"></div>
+				<div class="r2" style="
+					width: 2.5%;
+				    padding: 1.25% 0;
+				    border-radius: 100%;
+				    background-color: #b6b6b687;
+				    margin: 0 2%;
+				    scale: 2;"></div>
+				<div class="r3" style="
+					width: 2.5%;
+				    padding: 1.25% 0;
+				    border-radius: 100%;
+				    background-color: #b6b6b687;
+				    margin: 0 2%;
+				    scale: 2;"></div>
+			</div>
+	</div>
+	<div class="loading-ellipsis" style="bottom: 43%;" *ngIf="isLoading">
+		<div class="r1"></div>
+		<div class="r2"></div>
+		<div class="r3"></div>
+	</div>
+</div>

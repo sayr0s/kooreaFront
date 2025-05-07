@@ -1,0 +1,64 @@
+<div class="container-app">
+	
+	<div class="menu" #menu>
+		
+		<div class="header">
+			<div class="logo"></div>
+			<div class="close-menu-side-bar" (click)="closeSideBarMobile(menu)">
+				<i class="fa-solid fa-xmark"></i>
+			</div>
+		</div>
+		<div class="title" (click)="openList('detail')" >
+			<p>Profile</p>&nbsp;&nbsp; 
+			<i class="fa-solid fa-caret-right" *ngIf="!openDetailList"></i>
+			<i class="fa-solid fa-caret-down" *ngIf="openDetailList"></i>
+		</div>
+		<div class="detail" *ngIf="openDetailList">
+			<p class="name"><span>{{adminDetail.name}} {{adminDetail.lastName}}</span></p>
+			<br>
+			<p><span>&nbsp;&nbsp;Admins:</span> {{adminsLength}} </p>
+		</div>
+		<div class="title" (click)="openList('navigation')" >
+			<p>Navigation</p> &nbsp;&nbsp;
+			<i class="fa-solid fa-caret-right" *ngIf="!openNavigationList"></i>
+			<i class="fa-solid fa-caret-down" *ngIf="openNavigationList"></i>
+		</div>
+		<div class="list" *ngIf="openNavigationList">
+			<div class="ctn">
+				<div class="item" routerLink="/admin/management/admins">
+					<i class="fa-solid fa-user-tie"></i>
+					<span>Admins</span>
+				</div>
+				<div class="item" routerLink="/admin/management/template">
+					<i class="fa-solid fa-user-tie"></i>
+					<span>Template</span>
+				</div>
+				<div class="item" routerLink="/admin/management/users">
+					<i class="fa-solid fa-users"></i>
+					<span>players</span>
+				</div>
+        <!---kkk-->
+				<div class="item" routerLink="/admin/management/settings">
+					<i class="fa-solid fa-sliders"></i>
+					<span>Settings</span>
+				</div>
+				<!--div class="item" routerLink="/admin/management/settings">
+					<i class="fa-solid fa-shield-halved"></i>
+					<span>Change password</span>
+				</div-->
+				<div class="item" (click)="logout()">
+					<i class="fa-solid fa-arrow-right-from-bracket"></i>
+					<span>logout</span>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div class="main">
+		<div class="nav-bar">
+			<div class="open-menu-side-bar" (click)="openSideBarMobile(menu)"><i class="fa-solid fa-bars"></i></div>
+		</div>
+		<router-outlet></router-outlet>
+	</div>
+
+</div>
